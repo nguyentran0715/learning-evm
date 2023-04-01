@@ -1,16 +1,9 @@
-import ConnectWallet from '@/components/ConnectWallet';
 import TokenBalance from '@/components/TokenBalance';
-import useConnectWallet from '@/hooks/useConnectWallet';
+import useGlobalStore from '@/stores/useGlobalStore';
 
 const HomePage = () => {
-  const { isWalletConnected, wallet, handleConnectWallet } = useConnectWallet();
-
-  return (
-    <>
-      <ConnectWallet wallet={wallet} onConnectWallet={handleConnectWallet} />
-      {isWalletConnected && <TokenBalance />}
-    </>
-  );
+  const { isWalletConnected } = useGlobalStore();
+  return <>{isWalletConnected && <TokenBalance />}</>;
 };
 
 export default HomePage;

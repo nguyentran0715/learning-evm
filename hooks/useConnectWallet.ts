@@ -1,17 +1,32 @@
+import useGlobalStore from '@/stores/useGlobalStore';
 import { useEffect, useState } from 'react';
 
 const useConnectWallet = () => {
-  const [wallet, setWallet] = useState(null);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const {
+    activeWallet,
+    setActiveWallet,
+    isWalletConnected,
+    setIsWalletConnected,
+  } = useGlobalStore();
 
   useEffect(() => {
     window.ethereum.on('accountsChanged', (accounts: any[]) => {
-      setWallet(accounts[0])
+      setActiveWallet(accounts[0])
     } )
   }, [])
 
   const handleConnectWallet = async () => {
-    if (wallet) return;
+    const currentNetwork = await window.ethereum.chainId;
+    const isPolygon = currentNetwork === '0x89';
+
+    if (!isPolygon) {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x89' }],
+      });
+    }
+
+    // if (wallet) return;
 
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',
@@ -20,12 +35,12 @@ const useConnectWallet = () => {
     const activeWallet = accounts[0];
 
     if (accounts.length) {
-      setWallet(activeWallet);
+      setActiveWallet(activeWallet);
       setIsWalletConnected(true);
     }
   };
 
-  return { wallet, isWalletConnected, handleConnectWallet };
+  return { activeWallet, isWalletConnected, handleConnectWallet };
 };
 
 export default useConnectWallet;

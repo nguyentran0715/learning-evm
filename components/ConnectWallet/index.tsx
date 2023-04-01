@@ -1,9 +1,14 @@
 import { Button } from '@chakra-ui/react';
 
-const ConnectWallet = ({ wallet, onConnectWallet }: any) => {
+import { formatAddress } from '@/common/functions';
+import useConnectWallet from '@/hooks/useConnectWallet';
+
+const ConnectWallet = () => {
+  const { activeWallet, handleConnectWallet } = useConnectWallet();
+
   return (
-    <Button onClick={onConnectWallet}>
-      {wallet ? wallet : 'Connect Wallet'}
+    <Button onClick={handleConnectWallet}>
+      {activeWallet ? formatAddress(activeWallet) : 'Connect Wallet'}
     </Button>
   );
 };
