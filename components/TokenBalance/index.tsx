@@ -4,13 +4,12 @@ import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 const TokenBalance = () => {
-  const { balance, isLoading, getBalance } = useGetBalance();
+  const { getBalance } = useGetBalance();
   const [tokenList, setTokenList] = useState<any[]>([]);
-  console.log("TokenBalance ~ tokenList:", tokenList);
 
   useEffect(() => {
     handleGetBalances();
-  }, [])
+  }, []);
 
   const handleGetBalances = async () => {
     const newTokenList = await Promise.all(
@@ -25,18 +24,10 @@ const TokenBalance = () => {
   return (
     <Box w='50%'>
       {tokenList.map(token => (
-        <div key={token.id}>{token.symbol} {token.balance}</div>
+        <div key={token.id}>
+          {token.symbol} {token.balance}
+        </div>
       ))}
-      {/* <Flex my={10} gap={4}>
-        <Input
-          placeholder='Enter token address...'
-          onChange={handleChangeAddress}
-        />
-        <Button isLoading={isLoading} onClick={() => handleGetBalance(address)}>
-          Get balance
-        </Button>
-      </Flex>
-      <Text textAlign='center'>{balance > 0 && balance}</Text> */}
     </Box>
   );
 };

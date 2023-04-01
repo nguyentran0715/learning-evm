@@ -1,4 +1,12 @@
+export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
+
 export const LIST_TOKENS = [
+  {
+    id: 'matic',
+    symbol: 'MATIC',
+    address: '0x0000000000000000000000000000000000000000',
+    decimal: '18'
+  },
   {
     id: 'coin98',
     symbol: 'C98',
