@@ -26,3 +26,7 @@ export const LIST_TOKENS = [
     decimal: '18'
   },
 ]
+
+export const CHAINS_ID = {
+  POLYGON: '0x89'
+}

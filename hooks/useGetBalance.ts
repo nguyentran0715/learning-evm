@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import erc20ABI from '@/config/abi/erc20';
 import useGlobalStore from '@/stores/useGlobalStore';
 import { ADDRESS_ZERO } from '@/common/constants';
-import { convertWeiToBalance } from '@/common/functions';
+import { convertWeiToBalance, hexToDecimal } from '@/common/functions';
 
 const useGetBalance = () => {
   const { activeWallet } = useGlobalStore();
@@ -13,8 +13,11 @@ const useGetBalance = () => {
       let balance = 0;
 
       if (tokenAddress === ADDRESS_ZERO) {
-        const res = await window.ethereum.request({method: 'eth_getBalance', params: [activeWallet]})
-        balance = convertWeiToBalance(res, 18);
+        const res = await window.ethereum.request({
+          method: 'eth_getBalance',
+          params: [activeWallet],
+        });
+        balance = convertWeiToBalance(hexToDecimal(res, true) as string, 18);
 
       } else {
         const web3 = new Web3(window.ethereum);

@@ -12,6 +12,10 @@ const navList = [
     label: 'Transfer',
     href: '/transfer',
   },
+  {
+    label: 'Mint NFT',
+    href: '/transfer',
+  },
 ];
 
 const Header = () => {

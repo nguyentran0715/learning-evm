@@ -1,8 +1,9 @@
+import TransferPage from '@/views/TransferPage'
 import React from 'react'
 
 const Transfer = () => {
   return (
-    <div>Transfer</div>
+    <TransferPage />
   )
 }
 
